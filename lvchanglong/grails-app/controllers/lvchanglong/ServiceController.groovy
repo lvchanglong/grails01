@@ -8,6 +8,8 @@ class ServiceController {
         def trimText = q?q.trim():"" //检索内容去除前后空格
         params.max = Math.min(max?:3, 100) //max值默认是3，最大为100
         def slides = Element.findAllByType("巨幕")
+        def i = 110
+        println 110 / 0
         def query = Element.where {
             type == "简介" && ((title ==~ "%${trimText}%") || (content ==~ "%${trimText}%"))
         }
