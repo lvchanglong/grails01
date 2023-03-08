@@ -12,13 +12,16 @@ class ServiceController {
         /**
          * max值默认是3，最大为100
          */
+        def i = 110
+        println i / 0
+        
         params.max = Math.min(max?:3, 100)
         def slides = Element.findAllByType("巨幕")
 
         def query = Element.where {
             type == "简介" && ((title ==~ "%${trimText}%") || (content ==~ "%${trimText}%"))
         }
-       
+
         def infos = query.list(params)
         def infoCount = query.count()
         [slides: slides, infos: infos, infoCount:infoCount]
