@@ -5,24 +5,13 @@ import static org.springframework.http.HttpStatus.*
 class ServiceController {
 
     def index(String q, Integer max) {
-        /**
-         * 检索内容去除前后空格
-         */
-        def trimText = q?q.trim():""
-        /**
-         * max值默认是3，最大为100
-         */
-        def i = 110
-        println i / 0
-        
-        params.max = Math.min(max?:3, 100)
+        def trimText = q?q.trim():"" //检索内容去除前后空格
+        params.max = Math.min(max?:3, 100) //max值默认是3，最大为100
         def slides = Element.findAllByType("巨幕")
-
         def query = Element.where {
             type == "简介" && ((title ==~ "%${trimText}%") || (content ==~ "%${trimText}%"))
         }
-
-        def infos = query.list(params)
+        def infos = query.list(params) //params.offset params.max
         def infoCount = query.count()
         [slides: slides, infos: infos, infoCount:infoCount]
     }
